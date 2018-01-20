@@ -4,18 +4,18 @@ import {
   IComponentDemoPageProps,
   ComponentPage
 } from '@uifabric/example-app-base';
-import { KeytipBasicExample } from './examples/Keytip.Basic.Example';
+import { KeytipLayerBasicExample } from './examples/KeytipLayer.Basic.Example';
 
-export class KeytipPage extends React.Component<IComponentDemoPageProps, {}> {
+export class KeytipLayerPage extends React.Component<IComponentDemoPageProps, {}> {
   public render(): JSX.Element {
     return (
       <ComponentPage
-        title='Keytip'
-        componentName='Keytip'
+        title='Keytip Layer'
+        componentName='KeytipLayer'
         exampleCards={
           <div>
-            <ExampleCard title='Keytip Basic'>
-              <KeytipBasicExample />
+            <ExampleCard title='KeytipLayer Basic'>
+              <KeytipLayerBasicExample />
             </ExampleCard>
           </div>
         }

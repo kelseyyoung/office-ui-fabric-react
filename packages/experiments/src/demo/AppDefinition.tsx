@@ -105,6 +105,12 @@ export const AppDefinition: IAppDefinition = {
           key: 'Keytip',
           name: 'Keytip',
           url: '#/examples/keytip'
+        },
+        {
+          component: require<any>('../components/KeytipLayer/KeytipLayerPage').KeytipLayerPage,
+          key: 'KeytipLayer',
+          name: 'KeytipLayer',
+          url: '#/examples/keytiplayer'
         }
       ]
     }
