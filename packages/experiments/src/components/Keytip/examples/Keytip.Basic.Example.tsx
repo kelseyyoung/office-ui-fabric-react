@@ -13,7 +13,8 @@ export class KeytipBasicExample extends React.Component<{}, IKeytipBasicExampleS
   public render(): JSX.Element {
 
     return (
-      <div id='basic-keytip-div' style={ { width: 200, height: 1 } }>
+      <div>
+        <span id='basic-keytip-div' />
         <Keytip
           content={ 'hello' }
           calloutProps={ { target: '#basic-keytip-div' } }

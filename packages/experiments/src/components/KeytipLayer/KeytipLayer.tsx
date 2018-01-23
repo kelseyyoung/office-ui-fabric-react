@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { IKeytipLayerProps } from './KeytipLayer.types';
-import { Keytip } from '../Keytip';
+import { Keytip, IKeytipProps } from '../Keytip';
 import {
   BaseComponent
 } from '../../Utilities';
@@ -14,7 +14,7 @@ import { Layer } from 'office-ui-fabric-react/lib/Layer';
  * @extends {React.Component<IKeytipLayerProps>}
  */
 export class KeytipLayer extends BaseComponent<IKeytipLayerProps> {
-
+  // tslint:disable-next-line:no-any
   constructor(props: IKeytipLayerProps, context: any) {
     super(props, context);
   }
@@ -26,8 +26,8 @@ export class KeytipLayer extends BaseComponent<IKeytipLayerProps> {
     } = this.props;
     return (
       <Layer id={ id }>
-        { keytips && keytips.map((keytipProps, index) => {
-          return <Keytip key={ index } {...keytipProps} hostId={ id } />
+        { keytips && keytips.map((keytipProps: IKeytipProps, index: number) => {
+          return <Keytip key={ index } {...keytipProps} />;
         }) }
       </Layer>
     );

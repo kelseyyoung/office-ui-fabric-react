@@ -16,6 +16,7 @@ export interface IKeytipState {
  * @extends {React.Component<IKeytipProps, IKeytipState>}
  */
 export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
+  // tslint:disable-next-line:no-any
   constructor(props: IKeytipProps, context: any) {
     super(props, context);
   }
@@ -28,7 +29,7 @@ export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
 
     return (
       // TODO: pass through hostID to the callout when it's exposed
-      <Callout { ...calloutProps } isBeakVisible={ false }>
+      <Callout { ...calloutProps } isBeakVisible={ false } doNotLayer={ true }>
         <span>{ content }</span>
       </Callout>
     );

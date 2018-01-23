@@ -14,15 +14,21 @@ export class KeytipLayerBasicExample extends React.Component<{}, IKeytipLayerBas
 
     const keytipProps = [
       {
-        content: 'hello'
+        content: 'hello',
+        calloutProps: { target: '#testing-123' }
       },
       {
-        content: 'hello2'
+        content: 'hello2',
+        calloutProps: { target: '#testing-456' }
       }
     ];
 
     return (
-      <KeytipLayer id={ 'basic-keytip-layer' } keytips={ keytipProps } />
+      <div>
+        <button id='testing-123'>123</button>
+        <button id='testing-456'>456</button>
+        <KeytipLayer id={ 'basic-keytip-layer' } keytips={ keytipProps } />
+      </div>
     );
   }
 }
