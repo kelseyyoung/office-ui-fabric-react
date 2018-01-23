@@ -99,18 +99,6 @@ export const AppDefinition: IAppDefinition = {
           key: 'StaticList',
           name: 'StaticList',
           url: '#/examples/staticlist'
-        },
-        {
-          component: require<any>('../components/Keytip/KeytipPage').KeytipPage,
-          key: 'Keytip',
-          name: 'Keytip',
-          url: '#/examples/keytip'
-        },
-        {
-          component: require<any>('../components/KeytipLayer/KeytipLayerPage').KeytipLayerPage,
-          key: 'KeytipLayer',
-          name: 'KeytipLayer',
-          url: '#/examples/keytiplayer'
         }
       ]
     }

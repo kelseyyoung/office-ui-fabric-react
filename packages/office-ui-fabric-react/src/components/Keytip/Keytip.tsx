@@ -3,7 +3,7 @@ import { IKeytipProps } from './Keytip.types';
 import {
   BaseComponent
 } from '../../Utilities';
-import { Callout } from 'office-ui-fabric-react/lib/Callout';
+import { Callout } from '../../Callout';
 
 export interface IKeytipState {
 }
