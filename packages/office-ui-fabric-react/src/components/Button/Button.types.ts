@@ -7,6 +7,7 @@ import { IRenderFunction } from '../../Utilities';
 import { IContextualMenuProps } from '../../ContextualMenu';
 import { IIconProps } from '../../Icon';
 import { IStyle, ITheme } from '../../Styling';
+import { IKeytipProps } from '../../Keytip';
 
 export interface IButton {
   /**
@@ -108,6 +109,11 @@ export interface IButtonProps extends React.AllHTMLAttributes<HTMLAnchorElement 
   menuProps?: IContextualMenuProps;
 
   /**
+   * Props for the button keytip. Keytips must first be enabled in the app to properly register
+   */
+  keytipProps?: IKeytipProps;
+
+  /**
    * Callback that runs after Button's contextualmenu was closed (removed from the DOM)
    */
   onAfterMenuDismiss?: () => void;
@@ -166,6 +172,11 @@ export interface IButtonProps extends React.AllHTMLAttributes<HTMLAnchorElement 
   * Custom render function for button menu
   */
   onRenderMenu?: IRenderFunction<IContextualMenuProps>;
+
+  /**
+  * Custom render function for button keytip
+  */
+  onRenderKeytip?: IRenderFunction<IKeytipProps>;
 
   /**
    * Description of the action this button takes.

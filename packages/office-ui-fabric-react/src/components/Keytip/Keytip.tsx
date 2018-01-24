@@ -13,7 +13,7 @@ export interface IKeytipState {
  *
  * @export
  * @class Keytip
- * @extends {React.Component<IKeytipProps, IKeytipState>}
+ * @extends {BaseComponent<IKeytipProps, IKeytipState>}
  */
 export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
   // tslint:disable-next-line:no-any
@@ -24,12 +24,13 @@ export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
   public render(): JSX.Element {
     const {
       content,
+      keytipTarget,
       calloutProps
     } = this.props;
 
     return (
       // TODO: pass through hostID to the callout when it's exposed
-      <Callout { ...calloutProps } isBeakVisible={ false } doNotLayer={ true }>
+      <Callout { ...calloutProps } isBeakVisible={ false } doNotLayer={ true } target={ keytipTarget }>
         <span>{ content }</span>
       </Callout>
     );

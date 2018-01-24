@@ -1,8 +1,14 @@
 import * as React from 'react';
-import { IBaseProps } from 'office-ui-fabric-react/lib/Utilities';
-import { IKeytipProps } from '../Keytip/Keytip.types';
+import { IKeytipProps } from '../../Keytip';
+import { KeytipLayer } from '../../KeytipLayer';
 
-export interface IKeytipLayerProps extends IBaseProps, React.AllHTMLAttributes<HTMLSpanElement | HTMLAnchorElement> {
+export interface IKeytipLayerProps extends React.Props<KeytipLayer> {
+  /**
+   * Optional callback to access the KeytipLayer component. Use this instead of ref for accessing
+   * the public methods and properties of the component.
+   */
+  componentRef?: (component: KeytipLayer) => void;
+
   /**
    * The DOM ID to use as the hostId for the child keytips
    *

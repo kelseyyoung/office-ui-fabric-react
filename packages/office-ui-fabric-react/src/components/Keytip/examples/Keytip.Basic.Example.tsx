@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Keytip } from '../Keytip';
+import { DefaultButton } from '../../Button';
+import { KeytipLayer } from '../../KeytipLayer';
 
 export interface IKeytipBasicExampleState {
 }
@@ -14,11 +15,10 @@ export class KeytipBasicExample extends React.Component<{}, IKeytipBasicExampleS
 
     return (
       <div>
-        <span id='basic-keytip-div' />
-        <Keytip
-          content={ 'hello' }
-          calloutProps={ { target: '#basic-keytip-div' } }
-        />
+        <KeytipLayer id='layer-id' />
+        <DefaultButton text='123' keytipProps={ { content: 'hello' } } />
+        <DefaultButton text='456' keytipProps={ { content: 'hello too ' } } />
+        <DefaultButton text='789' keytipProps={ { content: 'hello three ' } } />
       </div>
     );
   }

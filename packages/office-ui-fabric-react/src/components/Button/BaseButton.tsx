@@ -13,9 +13,11 @@ import {
 import { Icon, IIconProps } from '../../Icon';
 import { DirectionalHint } from '../../common/DirectionalHint';
 import { ContextualMenu, IContextualMenuProps } from '../../ContextualMenu';
+import { Keytip, IKeytipProps } from '../../Keytip';
 import { IButtonProps, IButton } from './Button.types';
 import { IButtonClassNames, getBaseButtonClassNames } from './BaseButton.classNames';
 import { getClassNames as getBaseSplitButtonClassNames, ISplitButtonClassNames } from './SplitButton/SplitButton.classNames';
+import { KeytipManager } from '../../KeytipLayer';
 
 export interface IBaseButtonProps extends IButtonProps {
   baseClassName?: string;
@@ -43,6 +45,7 @@ export class BaseButton extends BaseComponent<IBaseButtonProps, IBaseButtonState
     split: false,
   };
 
+  private _keytipManager: KeytipManager = KeytipManager.getInstance();
   private _buttonElement: HTMLElement;
   private _splitButtonContainer: HTMLElement;
   private _labelId: string;
@@ -68,6 +71,14 @@ export class BaseButton extends BaseComponent<IBaseButtonProps, IBaseButtonState
     this.state = {
       menuProps: null
     };
+  }
+
+  public componentDidMount() {
+    // TODO
+    this._keytipManager && this.props.keytipProps && this._keytipManager.registerKeytip({
+      ...this.props.keytipProps,
+      keytipTarget: this._isSplitButton ? this._splitButtonContainer : this._buttonElement
+    });
   }
 
   public render(): JSX.Element {
