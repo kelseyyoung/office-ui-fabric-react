@@ -4,6 +4,9 @@ import {
   BaseComponent
 } from '../../Utilities';
 import { Callout } from '../../Callout';
+import { DirectionalHint } from '../ContextualMenu/';
+import { getKeytipClassnames } from './Keytip.classnames';
+import { getTheme } from '../../Styling';
 
 export interface IKeytipState {
 }
@@ -20,7 +23,6 @@ export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
   constructor(props: IKeytipProps, context: any) {
     super(props, context);
   }
-
   public render(): JSX.Element {
     const {
       content,
@@ -28,10 +30,18 @@ export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
       calloutProps
     } = this.props;
 
+    const classNames = getKeytipClassnames(getTheme());
+
     return (
-      // TODO: pass through hostID to the callout when it's exposed
-      <Callout { ...calloutProps } isBeakVisible={ false } doNotLayer={ true } target={ keytipTarget }>
-        <span>{ content }</span>
+      <Callout
+        { ...calloutProps }
+        isBeakVisible={ false }
+        doNotLayer={ true }
+        directionalHint={ DirectionalHint.bottomCenter }
+        target={ keytipTarget }>
+        <div className={ classNames.root }>
+          <span className={ classNames.content }>{ content }</span>
+        </div >
       </Callout>
     );
   }
