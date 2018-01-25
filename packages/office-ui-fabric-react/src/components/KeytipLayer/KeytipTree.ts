@@ -20,12 +20,12 @@ export interface IKeytipTreeNode {
 
 export class KeytipTree {
 
+  public currentKeytip: IKeytipTreeNode;
+
   private _enableSequences: KeySequence[];
   private _root: IKeytipTreeNode;
   private _nodes: IKeytipTreeNode[];
   private _manager: KeytipManager;
-
-  public currentKeytip: IKeytipTreeNode;
 
   constructor(enableSequences: KeySequence[]) {
     this._manager = KeytipManager.getInstance();
@@ -34,7 +34,7 @@ export class KeytipTree {
     this._root = {
       id: this._manager.getLayer().props.id,
       children: []
-    }
+    };
     this._nodes = [this._root];
   }
 

@@ -38,7 +38,8 @@ export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
         isBeakVisible={ false }
         doNotLayer={ true }
         directionalHint={ DirectionalHint.bottomCenter }
-        target={ keytipTarget }>
+        target={ keytipTarget }
+      >
         <div className={ classNames.root }>
           <span className={ classNames.content }>{ content }</span>
         </div >

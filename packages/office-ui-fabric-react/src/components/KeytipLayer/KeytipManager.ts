@@ -31,7 +31,7 @@ class KeytipManager {
     }
 
     for (let i = 0; i < keySequences.length; i++) {
-      describedby += " " + this.convertSequencesToID(keySequences.slice(0, i + 1));
+      describedby += ' ' + this.convertSequencesToID(keySequences.slice(0, i + 1));
     }
 
     return describedby;
