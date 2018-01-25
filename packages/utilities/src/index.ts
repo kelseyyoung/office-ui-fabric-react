@@ -14,6 +14,7 @@ export * from './IRenderFunction';
 export * from './ISize';
 export * from './IStyleFunction';
 export * from './KeyCodes';
+export * from './KeySequence';
 export * from './Rectangle';
 export * from './array';
 export * from './assertNever';
