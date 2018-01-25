@@ -2,6 +2,8 @@ import { KeytipLayer } from './KeytipLayer';
 import { IKeytipProps } from '../../Keytip';
 import { KeySequence, KeyCodes } from '../../Utilities';
 
+const ktpId = 'ktp';
+
 class KeytipManager {
 
   private static _instance = new KeytipManager();
@@ -14,7 +16,7 @@ class KeytipManager {
   // Converts a whole set of KeySequences into one ID, which will be the ID for the last keytip sequence specified
   // keySequences should not include the initial keytip 'start' sequence
   public convertSequencesToID(keySequences: KeySequence[]): string {
-    let id = 'ktp'; // TODO: constant
+    let id = ktpId;
     for (let keySequence of keySequences) {
       id += '-' + keySequence.keyCodes.join('-');
     }
