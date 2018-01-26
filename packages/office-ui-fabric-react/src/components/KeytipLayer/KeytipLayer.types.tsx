@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { IKeytipProps } from '../../Keytip';
 import { KeytipLayer } from '../../KeytipLayer';
+import { KeySequence } from '../../Utilities';
 
 export interface IKeytipLayerProps extends React.Props<KeytipLayer> {
   /**
@@ -23,7 +24,7 @@ export interface IKeytipLayerProps extends React.Props<KeytipLayer> {
   * @type {string[]}
   * @memberof IKeytipLayerProps
   */
-  keytipStartSequences?: string[];
+  keytipStartSequences: KeySequence[];
 
   /**
    * List of key sequences that execute the 'go back' functionality in keytips (going back to the previous level of keytips)

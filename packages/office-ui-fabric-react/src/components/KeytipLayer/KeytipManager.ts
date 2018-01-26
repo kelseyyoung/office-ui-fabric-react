@@ -1,10 +1,13 @@
 import { KeytipLayer } from './KeytipLayer';
+import { KeytipTree } from './KeytipTree';
 import { IKeytipProps } from '../../Keytip';
 import { KeySequence, KeyCodes } from '../../Utilities';
 
 class KeytipManager {
-
   private static _instance = new KeytipManager();
+
+  public keytipTree: KeytipTree;
+
   private _layer: KeytipLayer;
 
   public static getInstance() {
@@ -16,7 +19,8 @@ class KeytipManager {
   public convertSequencesToID(keySequences: KeySequence[]): string {
     let id = 'ktp'; // TODO: constant
     for (let keySequence of keySequences) {
-      id += '-' + keySequence.keyCodes.join('-');
+      let keyCodeStrs = keySequence.keyCodes.map((keyCode) => { return keyCode.toString(); });
+      id += '-' + keyCodeStrs.join('-');
     }
     return id;
   }
@@ -31,7 +35,7 @@ class KeytipManager {
     }
 
     for (let i = 0; i < keySequences.length; i++) {
-      describedby += " " + this.convertSequencesToID(keySequences.slice(0, i + 1));
+      describedby += ' ' + this.convertSequencesToID(keySequences.slice(0, i + 1));
     }
 
     return describedby;
@@ -48,6 +52,7 @@ class KeytipManager {
 
   public setLayer(layer: KeytipLayer) {
     this._layer = layer;
+    this.keytipTree = new KeytipTree(this._layer.props.keytipStartSequences);
   }
 
 }

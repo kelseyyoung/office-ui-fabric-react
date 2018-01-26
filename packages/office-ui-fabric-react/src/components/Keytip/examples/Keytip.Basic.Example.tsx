@@ -13,9 +13,9 @@ export class KeytipBasicExample extends React.Component<{}, IKeytipBasicExampleS
 
   public render(): JSX.Element {
 
+    // <KeytipLayer id='layer-id' />
     return (
       <div>
-        <KeytipLayer id='layer-id' />
         <DefaultButton text='123' keytipProps={ { content: 'hello' } } />
         <DefaultButton text='456' keytipProps={ { content: 'hello too ' } } />
         <DefaultButton text='789' keytipProps={ { content: 'hello three ' } } />
