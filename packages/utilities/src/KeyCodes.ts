@@ -6,6 +6,8 @@
 export const enum KeyCodes {
   a = 65,
   c = 67,
+  alt = 18,
+  win = 91,
   backspace = 8,
   comma = 188,
   del = 46,

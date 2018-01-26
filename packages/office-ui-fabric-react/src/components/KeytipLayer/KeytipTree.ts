@@ -1,4 +1,4 @@
-import { KeySequence } from '../../Utilities';
+import { IKeySequence } from '../../Utilities';
 import { KeytipManager } from './KeytipManager';
 
 export interface IKeytipTreeNode {
@@ -6,7 +6,7 @@ export interface IKeytipTreeNode {
   id: string;
 
   // Keytip key code sequence that invokes this KeytipTreeNode's onExecute function
-  keytipSequences?: KeySequence;
+  keytipSequences?: IKeySequence;
 
   // Control's execute function for when keytip is invoked, passed from the component to the Manager in the IKeytipProps
   onExecute?: () => void;
@@ -22,12 +22,12 @@ export class KeytipTree {
 
   public currentKeytip: IKeytipTreeNode;
 
-  private _enableSequences: KeySequence[];
+  private _enableSequences: IKeySequence[];
   private _root: IKeytipTreeNode;
   private _nodes: IKeytipTreeNode[];
   private _manager: KeytipManager;
 
-  constructor(enableSequences: KeySequence[]) {
+  constructor(enableSequences: IKeySequence[]) {
     this._manager = KeytipManager.getInstance();
     this._enableSequences = enableSequences;
     // Root has no keytipSequences, we instead check _enableSequences to handle multiple entry points
@@ -38,7 +38,7 @@ export class KeytipTree {
     this._nodes = [this._root];
   }
 
-  public addNode(fullSequence: KeySequence[], onExecute: void) {
+  public addNode(fullSequence: IKeySequence[], onExecute: void) {
     // Add
   }
 }
