@@ -1,4 +1,4 @@
-import { KeySequence } from '../../Utilities';
+import { IKeySequence } from '../../Utilities';
 import { KeytipManager } from './KeytipManager';
 
 export interface IKeytipTreeNode {
@@ -6,7 +6,7 @@ export interface IKeytipTreeNode {
   id: string;
 
   // KeySequence that invokes this KeytipTreeNode's onExecute function
-  keytipSequence?: KeySequence;
+  keytipSequence?: IKeySequence;
 
   // Control's execute function for when keytip is invoked, passed from the component to the Manager in the IKeytipProps
   onExecute?: () => void;
@@ -27,10 +27,12 @@ export class KeytipTree {
   public root: IKeytipTreeNode;
   public nodeMap: IKeytipTreeNodeMap = {};
 
-  private _enableSequences: KeySequence[];
+  private _enableSequences: IKeySequence[];
+  private _root: IKeytipTreeNode;
+  private _nodes: IKeytipTreeNode[];
   private _manager: KeytipManager;
 
-  constructor(enableSequences: KeySequence[]) {
+  constructor(enableSequences: IKeySequence[]) {
     this._manager = KeytipManager.getInstance();
     this._enableSequences = enableSequences;
     // Root has no keytipSequences, we instead check _enableSequences to handle multiple entry points
@@ -41,7 +43,7 @@ export class KeytipTree {
     this.nodeMap[this.root.id] = this.root;
   }
 
-  public addNode(fullSequence: KeySequence[], onExecute: () => void) {
+  public addNode(fullSequence: IKeySequence[], onExecute: () => void) {
     let nodeID = this._manager.convertSequencesToID(fullSequence);
     let keytipSequence = fullSequence[fullSequence.length - 1]; // TODO: could just pop here?
     // Parent ID is the root if there's only one sequence

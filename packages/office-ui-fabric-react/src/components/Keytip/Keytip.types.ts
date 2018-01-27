@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Keytip } from '../../Keytip';
 import { ICalloutProps } from '../../Callout';
-import { IPoint, KeySequence } from '../../Utilities';
+import { IPoint, IKeySequence } from '../../Utilities';
 
 export interface IKeytipProps extends React.Props<Keytip> {
   /**
@@ -46,7 +46,7 @@ export interface IKeytipProps extends React.Props<Keytip> {
    * Array of KeySequences which is the full key sequence to trigger this keytip
    * Should not include initial 'start' key sequence
    */
-  keySequences?: KeySequence[];
+  keySequences?: IKeySequence[];
 
   /**
    * ICalloutProps to pass to the callout element

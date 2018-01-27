@@ -5,11 +5,18 @@ import {
   BaseComponent
 } from '../../Utilities';
 import { Layer } from '../../Layer';
+import { IKeySequence, KeyCodes } from '../../Utilities';
 import { KeytipManager } from './KeytipManager';
 
 export interface IKeytipLayerState {
   keytips: IKeytipProps[];
 }
+
+const defaultSequence = {
+  keyCodes: [KeyCodes.alt, KeyCodes.win]
+} as IKeySequence;
+
+const ktpId = 'ktp';
 
 /**
  * A layer that holds all keytip items
@@ -19,6 +26,11 @@ export interface IKeytipLayerState {
  * @extends {BaseComponent<IKeytipLayerProps>}
  */
 export class KeytipLayer extends BaseComponent<IKeytipLayerProps, IKeytipLayerState> {
+  public static defaultProps: IKeytipLayerProps = {
+    keytipStartSequences: [defaultSequence],
+    id: ktpId + '-' + KeyCodes.alt + '-' + KeyCodes.win
+  };
+
   private _keytipManager: KeytipManager = KeytipManager.getInstance();
 
   // tslint:disable-next-line:no-any
