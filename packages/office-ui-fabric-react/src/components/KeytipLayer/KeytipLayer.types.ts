@@ -24,7 +24,7 @@ export interface IKeytipLayerProps extends React.Props<KeytipLayer> {
   * @type {KeySequence}
   * @memberof IKeytipLayerProps
   */
-  keytipStartSequences?: IKeySequence[];
+  keytipStartSequences: IKeySequence[];
 
   /**
    * List of key sequences that execute the 'go back' functionality in keytips (going back to the previous level of keytips)

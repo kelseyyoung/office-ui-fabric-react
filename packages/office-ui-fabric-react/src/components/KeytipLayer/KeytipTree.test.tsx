@@ -6,7 +6,7 @@ import * as renderer from 'react-test-renderer';
 
 import { KeytipLayer } from './KeytipLayer';
 import { KeytipManager } from './KeytipManager';
-import { KeySequence, KeyCodes } from '../../Utilities';
+import { IKeySequence, KeyCodes } from '../../Utilities';
 
 describe('KeytipTree', () => {
   function renderIntoDocument(element: React.ReactElement<any>): HTMLElement {
@@ -17,7 +17,7 @@ describe('KeytipTree', () => {
 
   it('constructor creates a root node', () => {
     const layerID = 'my-id';
-    const startSequence = [new KeySequence([KeyCodes.a])];
+    const startSequence = [{ keyCodes: [KeyCodes.a] } as IKeySequence];
     const layer = ReactTestUtils.renderIntoDocument<any>(
       <KeytipLayer id={ layerID } keytipStartSequences={ startSequence } />
     );
@@ -37,11 +37,10 @@ describe('KeytipTree', () => {
 
   it('addNode directly under root works correctly', () => {
     const layerID = 'my-id';
-    const startSequence = [new KeySequence([KeyCodes.a])];
+    const startSequence = [{ keyCodes: [KeyCodes.a] } as IKeySequence];
     const layer = ReactTestUtils.renderIntoDocument<any>(
       <KeytipLayer id={ layerID } keytipStartSequences={ startSequence } />
     );
-    debugger;
     let keytipManager = KeytipManager.getInstance();
     let keytipTree = keytipManager.keytipTree;
 

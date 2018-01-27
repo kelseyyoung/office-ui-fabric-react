@@ -21,7 +21,7 @@ class KeytipManager {
   public convertSequencesToID(keySequences: IKeySequence[]): string {
     let id = ktpId;
     for (let keySequence of keySequences) {
-      let keyCodeStrs = keySequence.keyCodes.map((keyCode) => { return keyCode.toString(); });
+      let keyCodeStrs = keySequence.keyCodes.map((keyCode: KeyCodes) => { return keyCode.toString(); });
       id += '-' + keyCodeStrs.join('-');
     }
     return id;
