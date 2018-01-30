@@ -32,6 +32,10 @@ export class KeytipTree {
   private _nodes: IKeytipTreeNode[];
   private _manager: KeytipManager;
 
+  /**
+   * KeytipTree constructor
+   * @param enableSequences - KeySequences that will start keytip mode, passed down through the KeytipLayer
+   */
   constructor(enableSequences: IKeySequence[]) {
     this._manager = KeytipManager.getInstance();
     this._enableSequences = enableSequences;
@@ -43,11 +47,17 @@ export class KeytipTree {
     this.nodeMap[this.root.id] = this.root;
   }
 
+  /**
+   * Add a keytip node to this KeytipTree
+   * @param fullSequence - Full key sequence for the keytip to add
+   * @param onExecute - Callback function to trigger when this keytip is activated
+   */
   public addNode(fullSequence: IKeySequence[], onExecute: () => void) {
     let nodeID = this._manager.convertSequencesToID(fullSequence);
-    let keytipSequence = fullSequence[fullSequence.length - 1]; // TODO: could just pop here?
-    // Parent ID is the root if there's only one sequence
-    let parentID = fullSequence.length === 1 ? this.root.id : this._manager.convertSequencesToID(fullSequence.slice(0, fullSequence.length - 1));
+    // This keytip's sequence is the last one defined
+    let keytipSequence = fullSequence.pop();
+    // Parent ID is the root if there aren't any more sequences
+    let parentID = fullSequence.length === 0 ? this.root.id : this._manager.convertSequencesToID(fullSequence);
 
     // See if node already exists
     let node = this.nodeMap[nodeID];

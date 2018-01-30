@@ -3,35 +3,42 @@ import { KeytipTree } from './KeytipTree';
 import { IKeytipProps } from '../../Keytip';
 import { IKeySequence, KeyCodes } from '../../Utilities';
 
-const ktpId = 'ktp';
-
-class KeytipManager {
+export class KeytipManager {
   private static _instance = new KeytipManager();
 
   public keytipTree: KeytipTree;
 
   private _layer: KeytipLayer;
+  private _ktpId = 'ktp';
 
+  /**
+   * Static function to get singleton KeytipManager instance
+   */
   public static getInstance() {
     return this._instance;
   }
 
-  // Converts a whole set of KeySequences into one ID, which will be the ID for the last keytip sequence specified
-  // keySequences should not include the initial keytip 'start' sequence
+  /**
+   * Converts a whole set of KeySequences into one ID, which will be the ID for the last keytip sequence specified
+   * keySequences should not include the initial keytip 'start' sequence
+   * @param keySequences - Full path of IKeySequences for one keytip
+   */
   public convertSequencesToID(keySequences: IKeySequence[]): string {
-    let id = ktpId;
+    let id = this._ktpId;
     for (let keySequence of keySequences) {
-      let keyCodeStrs = keySequence.keyCodes.map((keyCode: KeyCodes) => { return keyCode.toString(); });
-      id += '-' + keyCodeStrs.join('-');
+      id += '-' + keySequence.keyCodes.join('-');
     }
     return id;
   }
 
-  // Gets the aria-describedby property for a set of keySequences
-  // keySequences should not include the initial keytip 'start' sequence
+  /**
+   * Gets the aria-describedby property for a set of keySequences
+   * keySequences should not include the initial keytip 'start' sequence
+   * @param keySequences - Full path of IKeySequences for one keytip
+   */
   public getAriaDescribedBy(keySequences: IKeySequence[]): string {
     let describedby = this._layer.props.id;
-    if (!!keySequences.length) {
+    if (!keySequences.length) {
       // Return just the layer ID
       return describedby;
     }
@@ -43,20 +50,30 @@ class KeytipManager {
     return describedby;
   }
 
+  /**
+   * Registers a keytip in _layer
+   * @param keytipProps - Keytip to register
+   */
   public registerKeytip(keytipProps: IKeytipProps) {
     // Set the 'keytips' property in _layer
     this._layer && this._layer.registerKeytip(keytipProps);
   }
 
+  /**
+   * Getter for _layer
+   */
   public getLayer() {
     return this._layer;
   }
 
+  /**
+   * Sets the _layer property and creates a KeytipTree
+   * Should be called from the KeytipLayer constructor
+   * @param layer - KeytipLayer object
+   */
   public setLayer(layer: KeytipLayer) {
     this._layer = layer;
     this.keytipTree = new KeytipTree(this._layer.props.keytipStartSequences);
   }
 
 }
-
-export { KeytipManager };
