@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IKeytipLayerProps } from './KeytipLayer.types';
 import { Keytip, IKeytipProps } from '../Keytip';
 import {
+  autobind,
   BaseComponent
 } from '../../Utilities';
 import { Layer } from '../../Layer';
@@ -9,7 +10,8 @@ import { IKeySequence, KeyCodes } from '../../Utilities';
 import { KeytipManager } from './KeytipManager';
 
 export interface IKeytipLayerState {
-  keytips: IKeytipProps[];
+  inKeytipMode: boolean;
+  keytips?: IKeytipProps[];
 }
 
 const defaultSequence = {
@@ -36,12 +38,14 @@ export class KeytipLayer extends BaseComponent<IKeytipLayerProps, IKeytipLayerSt
   };
 
   private _keytipManager: KeytipManager = KeytipManager.getInstance();
+  private _keyString: IKeySequence;
 
   // tslint:disable-next-line:no-any
   constructor(props: IKeytipLayerProps, context: any) {
     super(props, context);
 
     this.state = {
+      inKeytipMode: false,
       keytips: []
     };
 
@@ -76,5 +80,47 @@ export class KeytipLayer extends BaseComponent<IKeytipLayerProps, IKeytipLayerSt
         }) }
       </Layer>
     );
+  }
+
+  public componentDidMount() {
+    this._events.on(window, 'mousedown', this._onDismiss);
+    this._events.on(window, 'resize', this._onDismiss);
+    this._events.on(window, 'keydown', this._onKeyDown);
+    this._events.on(window, 'keypress', this._onKeyPress);
+  }
+
+  @autobind
+  private _onDismiss(ev?: React.MouseEvent<HTMLElement>) {
+    // if we are in keytip mode.. then exit keytip mode
+    if (this.state.inKeytipMode) {
+      this._exitKeytipMode();
+    }
+  }
+
+  @autobind
+  private _onKeyDown(ev: React.KeyboardEvent<HTMLElement>) {
+    switch (ev.which) {
+      case KeyCodes.escape: {
+        // exit current layer
+      }
+        break;
+      case KeyCodes.tab:
+      case KeyCodes.enter:
+      case KeyCodes.space:
+        this._exitKeytipMode();
+        break;
+    }
+  }
+
+  @autobind
+  private _onKeyPress(ev: React.KeyboardEvent<HTMLElement>) {
+    let handled = false;
+
+    // call processInput
+  }
+
+  private _exitKeytipMode() {
+    // TODO should we close menus if opened???
+    this.setState({ keytips: undefined, inKeytipMode: false });
   }
 }
