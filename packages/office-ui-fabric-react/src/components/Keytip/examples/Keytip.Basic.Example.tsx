@@ -20,7 +20,8 @@ export class KeytipBasicExample extends React.Component<{}, IKeytipBasicExampleS
         <DefaultButton text='456' keytipProps={ { content: 'hello too ' } } />
         <DefaultButton text='789' keytipProps={ { content: 'hello three ' } } />
         <Keytip
-          content={ 'A' } />
+          content={ 'A' }
+        />
       </div>
     );
   }

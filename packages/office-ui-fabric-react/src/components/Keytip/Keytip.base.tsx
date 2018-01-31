@@ -46,7 +46,8 @@ export class KeytipBase extends BaseComponent<IKeytipProps, IKeytipState> implem
         theme: theme!,
         disabled
       }
-    )
+    );
+
     return (
       <Callout
         { ...calloutProps }

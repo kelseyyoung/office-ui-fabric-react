@@ -9,7 +9,7 @@ export const getStyles = (props: IKeytipStyleProps): IKeytipStyles => {
         backgroundColor: theme.palette.neutralDark
       },
       disabled && {
-
+        opacity: 0.5,
       }
     ],
     root: [{
@@ -24,7 +24,7 @@ export const getStyles = (props: IKeytipStyleProps): IKeytipStyles => {
       display: 'inline-block'
     },
     disabled && {
-
+      color: '#b1b1b1'
     }],
   };
 };
@@ -35,7 +35,7 @@ export const getCalloutStyles = (props: ICalloutContentStyleProps): ICalloutCont
     container: [
     ],
     root: [{
-      borderColor: theme.palette.neutralDark,
+      border: 'none'
     }],
     beak: [
     ],
