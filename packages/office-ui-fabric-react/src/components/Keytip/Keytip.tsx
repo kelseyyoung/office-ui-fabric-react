@@ -7,6 +7,7 @@ import { Callout } from '../../Callout';
 import { DirectionalHint } from '../ContextualMenu/';
 import { getKeytipClassnames } from './Keytip.classnames';
 import { getTheme } from '../../Styling';
+import { getCalloutStyles } from './Keytip.styles';
 
 export interface IKeytipState {
 }
@@ -36,9 +37,10 @@ export class Keytip extends BaseComponent<IKeytipProps, IKeytipState> {
       <Callout
         { ...calloutProps }
         isBeakVisible={ false }
-        doNotLayer={ true }
+        // doNotLayer={ true }
         directionalHint={ DirectionalHint.bottomCenter }
         target={ keytipTarget }
+        getStyles={ getCalloutStyles }
       >
         <div className={ classNames.root }>
           <span className={ classNames.content }>{ content }</span>

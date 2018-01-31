@@ -11,7 +11,7 @@ import { KeytipManager } from './KeytipManager';
 
 export interface IKeytipLayerState {
   inKeytipMode: boolean;
-  keytips?: IKeytipProps[];
+  keytips: IKeytipProps[];
 }
 
 const defaultSequence = {
@@ -121,6 +121,6 @@ export class KeytipLayer extends BaseComponent<IKeytipLayerProps, IKeytipLayerSt
 
   private _exitKeytipMode() {
     // TODO should we close menus if opened???
-    this.setState({ keytips: undefined, inKeytipMode: false });
+    this.setState({ keytips: [], inKeytipMode: false });
   }
 }
