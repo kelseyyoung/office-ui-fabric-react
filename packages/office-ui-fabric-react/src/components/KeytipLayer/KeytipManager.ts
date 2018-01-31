@@ -73,7 +73,7 @@ export class KeytipManager {
    */
   public setLayer(layer: KeytipLayer) {
     this._layer = layer;
-    this.keytipTree = new KeytipTree(this._layer.props.keytipStartSequences);
+    this.keytipTree = new KeytipTree(this._layer.props.keytipStartSequences, this._layer.props.keytipExitSequences);
   }
 
 }

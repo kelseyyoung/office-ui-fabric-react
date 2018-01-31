@@ -43,6 +43,14 @@ export interface IKeytipProps extends React.Props<Keytip> {
   visible?: boolean;
 
   /**
+   * Function to call when this keytip is activated
+   *
+   * @type {() => void}
+   * @memberof IKeytipProps
+   */
+  onExecute?: () => void;
+
+  /**
    * Array of KeySequences which is the full key sequence to trigger this keytip
    * Should not include initial 'start' key sequence
    */

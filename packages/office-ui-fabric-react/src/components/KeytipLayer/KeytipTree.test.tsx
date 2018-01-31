@@ -20,14 +20,28 @@ describe('KeytipTree', () => {
   }
 
   const layerID = 'my-layer-id';
-  const keytipStartSequence: IKeySequence[] = [{ keyCodes: [KeyCodes.a] }];
+  const keytipStartSequences: IKeySequence[] = [{ keyCodes: [KeyCodes.alt, KeyCodes.leftWindow] }];
+  const keytipExitSequences: IKeySequence[] = [{ keyCodes: [KeyCodes.alt, KeyCodes.leftWindow] }];
+  const keytipGoBackSequences: IKeySequence[] = [{ keyCodes: [KeyCodes.escape] }];
   const keytipManager = KeytipManager.getInstance();
 
-  it('constructor creates a root node', () => {
+  const ktp = 'ktp';
+  const separator = '-';
+  const ktpPrefix = ktp + separator;
+
+  beforeEach(() => {
     // Create layer
-    const layer = ReactTestUtils.renderIntoDocument<any>(
-      <KeytipLayer id={ layerID } keytipStartSequences={ keytipStartSequence } />
+    ReactTestUtils.renderIntoDocument<any>(
+      <KeytipLayer
+        id={ layerID }
+        keytipStartSequences={ keytipStartSequences }
+        keytipGoBackSequences={ keytipGoBackSequences }
+        keytipExitSequences={ keytipExitSequences }
+      />
     );
+  });
+
+  it('constructor creates a root node', () => {
     let keytipTree = keytipManager.keytipTree;
 
     // Tree root ID should be the layer's ID
@@ -41,14 +55,10 @@ describe('KeytipTree', () => {
   });
 
   it('addNode directly under root works correctly', () => {
-    // Create layer
-    const layer = ReactTestUtils.renderIntoDocument<any>(
-      <KeytipLayer id={ layerID } keytipStartSequences={ keytipStartSequence } />
-    );
     let keytipTree = keytipManager.keytipTree;
 
     // TreeNode C, will be child of root
-    const keytipID_C = 'ktp-' + KeyCodes.c;
+    const keytipID_C = ktpPrefix + KeyCodes.c;
     const sampleKeySequence: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }];
 
     keytipTree.addNode(sampleKeySequence, emptyCallback);
@@ -69,18 +79,14 @@ describe('KeytipTree', () => {
   });
 
   it('addNode two levels from root', () => {
-    // Create layer
-    const layer = ReactTestUtils.renderIntoDocument<any>(
-      <KeytipLayer id={ layerID } keytipStartSequences={ keytipStartSequence } />
-    );
     let keytipTree = keytipManager.keytipTree;
 
     // Parent
-    const keytipID_C = 'ktp-' + KeyCodes.c;
+    const keytipID_C = ktpPrefix + KeyCodes.c;
     const keytipSequence_C: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }];
 
     // Child
-    const keytipID_B = 'ktp-' + KeyCodes.c + '-' + KeyCodes.b;
+    const keytipID_B = ktpPrefix + KeyCodes.c + separator + KeyCodes.b;
     const keytipSequence_B: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }, { keyCodes: [KeyCodes.b] }];
 
     keytipTree.addNode(keytipSequence_C, emptyCallback);
@@ -101,18 +107,14 @@ describe('KeytipTree', () => {
   });
 
   it('add a child node before its parent', () => {
-    // Create layer
-    const layer = ReactTestUtils.renderIntoDocument<any>(
-      <KeytipLayer id={ layerID } keytipStartSequences={ keytipStartSequence } />
-    );
     let keytipTree = keytipManager.keytipTree;
 
     // Parent
-    const keytipID_C = 'ktp-' + KeyCodes.c;
+    const keytipID_C = ktpPrefix + KeyCodes.c;
     const keytipSequence_C: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }];
 
     // Child
-    const keytipID_B = 'ktp-' + KeyCodes.c + '-' + KeyCodes.b;
+    const keytipID_B = ktpPrefix + KeyCodes.c + separator + KeyCodes.b;
     const keytipSequence_B: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }, { keyCodes: [KeyCodes.b] }];
 
     keytipTree.addNode(keytipSequence_B, emptyCallback);
@@ -166,29 +168,26 @@ describe('KeytipTree', () => {
      * Nodes will be added in order: F, C, B, D, E
      */
 
-    const layer = ReactTestUtils.renderIntoDocument<any>(
-      <KeytipLayer id={ layerID } keytipStartSequences={ keytipStartSequence } />
-    );
     let keytipTree = keytipManager.keytipTree;
 
     // Node B
-    const keytipID_B = 'ktp-' + KeyCodes.c + '-' + KeyCodes.b;
+    const keytipID_B = ktpPrefix + KeyCodes.c + separator + KeyCodes.b;
     const keytipSequence_B: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }, { keyCodes: [KeyCodes.b] }];
 
     // Node C
-    const keytipID_C = 'ktp-' + KeyCodes.c;
+    const keytipID_C = ktpPrefix + KeyCodes.c;
     const keytipSequence_C: IKeySequence[] = [{ keyCodes: [KeyCodes.c] }];
 
     // Node D
-    const keytipID_D = 'ktp-' + KeyCodes.e + '-' + KeyCodes.d;
+    const keytipID_D = ktpPrefix + KeyCodes.e + separator + KeyCodes.d;
     const keytipSequence_D: IKeySequence[] = [{ keyCodes: [KeyCodes.e] }, { keyCodes: [KeyCodes.d] }];
 
     // Node E
-    const keytipID_E = 'ktp-' + KeyCodes.e;
+    const keytipID_E = ktpPrefix + KeyCodes.e;
     const keytipSequence_E: IKeySequence[] = [{ keyCodes: [KeyCodes.e] }];
 
     // Node F
-    const keytipID_F = 'ktp-' + KeyCodes.e + '-' + KeyCodes.f;
+    const keytipID_F = ktpPrefix + KeyCodes.e + separator + KeyCodes.f;
     const keytipSequence_F: IKeySequence[] = [{ keyCodes: [KeyCodes.e] }, { keyCodes: [KeyCodes.f] }];
 
     keytipTree.addNode(keytipSequence_F, emptyCallback);
