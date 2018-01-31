@@ -79,12 +79,31 @@ export interface IKeytipProps {
   keytipTarget?: HTMLElement | string | MouseEvent | IPoint | null;
 }
 
+/**
+ * Props to style Keytip component
+ */
 export interface IKeytipStyleProps {
+
+  /**
+   * The theme for the keytip.
+   */
   theme: ITheme;
+
+  /**
+   * Whether the keytip is disabled or not.
+   */
   disabled?: boolean;
 }
 
 export interface IKeytipStyles {
+
+  /**
+   * Style for the div container surrounding the keytip content.
+   */
   container: IStyle;
+
+  /**
+   * Style for the keytip content element.
+   */
   root: IStyle;
 }
