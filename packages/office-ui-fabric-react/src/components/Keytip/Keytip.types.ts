@@ -2,6 +2,7 @@ import * as React from 'react';
 import { Keytip } from '../../Keytip';
 import { ICalloutProps } from '../../Callout';
 import { IPoint, IKeySequence } from '../../Utilities';
+import { ITheme} from '../../Styling';
 
 export interface IKeytipProps extends React.Props<Keytip> {
   /**
@@ -62,4 +63,9 @@ export interface IKeytipProps extends React.Props<Keytip> {
    * or a MouseEvent. If MouseEvent is given then the origin point of the event will be used.
    */
   keytipTarget?: HTMLElement | string | MouseEvent | IPoint | null;
+
+  /**
+   * Optional theme for component
+   */
+  theme?: ITheme;
 }
