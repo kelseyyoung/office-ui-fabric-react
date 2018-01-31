@@ -12,8 +12,13 @@ export interface IKeytipLayerState {
   keytips: IKeytipProps[];
 }
 
+<<<<<<< HEAD
 const defaultStartEndSequence = {
   keyCodes: [KeyCodes.alt, KeyCodes.win]
+=======
+const defaultSequence = {
+  keyCodes: [KeyCodes.alt, KeyCodes.leftWindow]
+>>>>>>> 7389d014f96db4cafe9edc982e3c419000fddadd
 } as IKeySequence;
 
 const defaultGoBackSequence = {
@@ -31,10 +36,15 @@ const ktpId = 'ktp';
  */
 export class KeytipLayer extends BaseComponent<IKeytipLayerProps, IKeytipLayerState> {
   public static defaultProps: IKeytipLayerProps = {
+<<<<<<< HEAD
     keytipStartSequences: [defaultStartEndSequence],
     keytipGoBackSequences: [defaultGoBackSequence],
     keytipExitSequences: [defaultStartEndSequence],
     id: ktpId + '-' + KeyCodes.alt + '-' + KeyCodes.win
+=======
+    keytipStartSequences: [defaultSequence],
+    id: ktpId + '-' + KeyCodes.alt + '-' + KeyCodes.leftWindow
+>>>>>>> 7389d014f96db4cafe9edc982e3c419000fddadd
   };
 
   private _keytipManager: KeytipManager = KeytipManager.getInstance();
