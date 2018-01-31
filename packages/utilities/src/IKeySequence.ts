@@ -23,6 +23,11 @@ export function keySequencesAreEqual(seq1: IKeySequence, seq2: IKeySequence): bo
   return true;
 }
 
+/**
+ *
+ * @param sequences
+ * @param seq
+ */
 export function keySequencesContain(sequences: IKeySequence[], seq: IKeySequence): boolean {
   for (let i = 0; i < sequences.length; i++) {
     if (keySequencesAreEqual(sequences[i], seq)) {
@@ -30,4 +35,16 @@ export function keySequencesContain(sequences: IKeySequence[], seq: IKeySequence
     }
   }
   return false;
+}
+
+/**
+ *
+ * @param keySequences
+ */
+export function convertSequencesToString(keySequences: IKeySequence[]): string {
+  let conversion = '';
+  for (let keySequence of keySequences) {
+    conversion += keySequence.keyCodes.join('-');
+  }
+  return conversion;
 }
