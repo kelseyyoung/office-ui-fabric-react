@@ -49,4 +49,9 @@ export interface IKeytipLayerProps extends React.Props<KeytipLayer> {
    * @memberof IKeytipLayerProps
    */
   keytips?: IKeytipProps[];
+
+  /**
+   *
+   */
+  onExitKeytipMode?: () => void;
 }

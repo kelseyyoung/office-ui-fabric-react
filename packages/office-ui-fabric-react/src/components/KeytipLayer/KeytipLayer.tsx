@@ -125,8 +125,10 @@ export class KeytipLayer extends BaseComponent<IKeytipLayerProps, IKeytipLayerSt
     // call processInput
   }
 
-  private _exitKeytipMode() {
-    // TODO should we close menus if opened???
+  public _exitKeytipMode() {
+    if (this.props.onExitKeytipMode) {
+      this.props.onExitKeytipMode();
+    }
     this.setState({ keytips: [], inKeytipMode: false });
   }
 }

@@ -1,4 +1,4 @@
-import { IKeySequence } from '../../Utilities';
+import { IKeySequence, keySequencesContain } from '../../Utilities';
 import { KeytipManager } from './KeytipManager';
 
 export interface IKeytipTreeNode {
@@ -21,6 +21,7 @@ export interface IKeytipTreeNode {
   parent?: string;
 
   // TODO: may need to know if keytip is disabled, if so shouldn't change visibility when start of sequence is pressed
+  // TODO: visible/hidden
 }
 
 export interface IKeytipTreeNodeMap {
@@ -106,14 +107,20 @@ export class KeytipTree {
     let i = 0;
     // If key sequence is in 'exit sequences', exit keytip mode
     //    Trigger layer's onExit callback
-    if ()
+    if (keySequencesContain(this._exitSequences, keySequence)) {
+      this._manager.getLayer()._exitKeytipMode();
+    }
     // If key sequence is in 'go back sequences', move currentKeytip to parent (or if currentKeytip is the root, exit)
     //    Trigger node's onGoBackExecute
     //    Hide all keytips currently showing
     //    Show all keytips of children of currentKeytip
+
     // If key sequence is in 'entry sequences' and currentKeytip is null, set currentKeytip to root
     //    Show children of root
     //    Trigger layer's onEnter callback
+    if (keySequencesContain(this._enableSequences, keySequence)) {
+
+    }
 
     // If currentKeytip is a non-root node, look at all children of currentKeytip
     //    If the sequence exactly matches one of the children
