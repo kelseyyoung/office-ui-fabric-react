@@ -501,7 +501,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
     const nativeProps = getNativeProps(item, anchorProperties);
     const disabled = isItemDisabled(item);
     const anchorRef = createRef<HTMLAnchorElement>();
-    const openSubMenu = (item: IContextualMenuItem, target: HTMLElement = anchorRef.current) => { this._onItemSubMenuExpand(item, target); };
+    const openSubMenu = this._onItemSubMenuExpand.bind(this);
     const dismissSubMenu = this._onSubMenuDismiss.bind(this);
     const dismissMenu = this.dismiss.bind(this, undefined);
 
@@ -544,6 +544,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
                 openSubMenu={ openSubMenu }
                 dismissSubMenu={ dismissSubMenu }
                 dismissMenu={ dismissMenu }
+                subMenuTargetRef={ anchorRef }
               />
             </a>
           ) }
@@ -637,6 +638,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
               openSubMenu={ openSubMenu }
               dismissSubMenu={ dismissSubMenu }
               dismissMenu={ dismissMenu }
+              subMenuTargetRef={ btnRef }
             />
           </button>
         ) }

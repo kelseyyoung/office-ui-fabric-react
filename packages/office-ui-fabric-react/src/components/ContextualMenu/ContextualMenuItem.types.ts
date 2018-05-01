@@ -1,5 +1,6 @@
 import { IContextualMenuItem } from './ContextualMenu.types';
 import { IMenuItemClassNames } from './ContextualMenu.classNames';
+import { RefObject } from '../../Utilities';
 
 export interface IContextualMenuRenderItem {
   /**
@@ -66,4 +67,9 @@ export interface IContextualMenuItemProps extends React.HTMLAttributes<IContextu
    * If dismissAll is true, all menus will be closed.
    */
   dismissMenu?: (dismissAll?: boolean) => void;
+
+  /**
+   * This prop will get set by ContextualMenu, will be the target to attach the submenu to when openSubMenu is triggered.
+   */
+  subMenuTargetRef?: RefObject<HTMLElement>;
 }

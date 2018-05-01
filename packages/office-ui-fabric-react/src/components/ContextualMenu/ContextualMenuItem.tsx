@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { hasSubmenu, getIsChecked } from '../../utilities/contextualMenu/index';
-import { BaseComponent, getRTL, createRef } from '../../Utilities';
+import { BaseComponent, getRTL } from '../../Utilities';
 import { Icon } from '../../Icon';
 import { IContextualMenuItemProps } from './ContextualMenuItem.types';
 
 export class ContextualMenuItem extends BaseComponent<IContextualMenuItemProps, {}> {
-  private _itemRef = createRef<HTMLElement>();
-
   public render() {
     const { item, classNames } = this.props;
 
     return (
       <div
-        ref={ this._itemRef }
         className={
           item.split ? classNames.linkContentMenu : classNames.linkContent
         }
@@ -26,20 +23,23 @@ export class ContextualMenuItem extends BaseComponent<IContextualMenuItemProps, 
   }
 
   public openSubMenu = (): void => {
-    if (hasSubmenu(this.props.item) && this.props.openSubMenu && this._itemRef && this._itemRef.current) {
-      this.props.openSubMenu(this.props.item, this._itemRef.current);
+    const { item, openSubMenu, subMenuTargetRef } = this.props;
+    if (hasSubmenu(item) && openSubMenu && subMenuTargetRef && subMenuTargetRef.current) {
+      openSubMenu(item, subMenuTargetRef.current);
     }
   }
 
   public dismissSubMenu = (): void => {
-    if (hasSubmenu(this.props.item) && this.props.dismissSubMenu) {
-      this.props.dismissSubMenu();
+    const { item, dismissSubMenu } = this.props;
+    if (hasSubmenu(item) && dismissSubMenu) {
+      dismissSubMenu();
     }
   }
 
   public dismissMenu = (dismissAll?: boolean): void => {
-    if (this.props.dismissMenu) {
-      this.props.dismissMenu(dismissAll);
+    const { dismissMenu } = this.props;
+    if (dismissMenu) {
+      dismissMenu(dismissAll);
     }
   }
 

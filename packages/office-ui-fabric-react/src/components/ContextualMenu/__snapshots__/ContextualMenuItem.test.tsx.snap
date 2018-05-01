@@ -54,7 +54,7 @@ ShallowWrapper {
       ],
       "className": "linkContent",
     },
-    "ref": [Function],
+    "ref": null,
     "rendered": Array [
       Object {
         "instance": null,
@@ -93,7 +93,7 @@ ShallowWrapper {
         ],
         "className": "linkContent",
       },
-      "ref": [Function],
+      "ref": null,
       "rendered": Array [
         Object {
           "instance": null,
@@ -181,7 +181,7 @@ ShallowWrapper {
       ],
       "className": "linkContent",
     },
-    "ref": [Function],
+    "ref": null,
     "rendered": Array [
       null,
       Object {
@@ -230,7 +230,7 @@ ShallowWrapper {
         ],
         "className": "linkContent",
       },
-      "ref": [Function],
+      "ref": null,
       "rendered": Array [
         null,
         Object {
@@ -323,7 +323,7 @@ ShallowWrapper {
       ],
       "className": "linkContent",
     },
-    "ref": [Function],
+    "ref": null,
     "rendered": Array [
       null,
       Object {
@@ -358,7 +358,7 @@ ShallowWrapper {
         ],
         "className": "linkContent",
       },
-      "ref": [Function],
+      "ref": null,
       "rendered": Array [
         null,
         Object {
@@ -446,7 +446,7 @@ ShallowWrapper {
       ],
       "className": "linkContent",
     },
-    "ref": [Function],
+    "ref": null,
     "rendered": Array [
       null,
       Object {
@@ -498,7 +498,7 @@ ShallowWrapper {
         ],
         "className": "linkContent",
       },
-      "ref": [Function],
+      "ref": null,
       "rendered": Array [
         null,
         Object {
