@@ -499,6 +499,9 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
     const itemHasSubmenu = hasSubmenu(item);
     const nativeProps = getNativeProps(item, anchorProperties);
     const disabled = isItemDisabled(item);
+    const openSubMenu = this._onItemSubMenuExpand.bind(this);
+    const dismissSubMenu = this._onSubMenuDismiss.bind(this);
+    const dismissMenu = this.dismiss.bind(this, undefined);
 
     return (
       <div>
@@ -534,6 +537,10 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
                 index={ index }
                 onCheckmarkClick={ hasCheckmarks ? this._onItemClick : undefined }
                 hasIcons={ hasIcons }
+                componentRef={ item.renderItemComponentRef }
+                openSubMenu={ openSubMenu }
+                dismissSubMenu={ dismissSubMenu }
+                dismissMenu={ dismissMenu }
               />
             </a>
           ) }
@@ -599,6 +606,9 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
         hasMenu: true
       };
     }
+    const openSubMenu = this._onItemSubMenuExpand.bind(this);
+    const dismissSubMenu = this._onSubMenuDismiss.bind(this);
+    const dismissMenu = this.dismiss.bind(this, undefined);
 
     return (
       <KeytipData
@@ -618,6 +628,10 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
               index={ index }
               onCheckmarkClick={ hasCheckmarks ? this._onItemClick : undefined }
               hasIcons={ hasIcons }
+              componentRef={ item.renderItemComponentRef }
+              openSubMenu={ openSubMenu }
+              dismissSubMenu={ dismissSubMenu }
+              dismissMenu={ dismissMenu }
             />
           </button>
         ) }
@@ -634,6 +648,10 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
     hasCheckmarks?: boolean,
     hasIcons?: boolean): JSX.Element {
     const { contextualMenuItemAs } = this.props;
+
+    const openSubMenu = this._onItemSubMenuExpand.bind(this);
+    const dismissSubMenu = this._onSubMenuDismiss.bind(this);
+    const dismissMenu = this.dismiss.bind(this, undefined);
 
     return (
       <ContextualMenuSplitButton
@@ -653,6 +671,9 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
         onItemClick={ this._onItemClick }
         onItemClickBase={ this._onItemClickBase }
         onItemKeyDown={ this._onItemKeyDown }
+        openSubMenu={ openSubMenu }
+        dismissSubMenu={ dismissSubMenu }
+        dismissMenu={ dismissMenu }
       />
     );
   }
