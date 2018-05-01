@@ -256,12 +256,6 @@ export interface IContextualMenuProps extends React.Props<ContextualMenu>, IWith
 
 export interface IContextualMenuItem {
   /**
-   * Optional callback to access the IContextualMenuRenderItem interface. Use this instead of ref for accessing
-   * the public methods and properties of the component.
-   */
-  renderItemComponentRef?: (component: IContextualMenuRenderItem | null) => void;
-
-  /**
    * Unique id to identify the item
    */
   key: string;
@@ -469,6 +463,12 @@ export interface IContextualMenuItem {
   keytipProps?: IKeytipProps;
 
   /**
+   * Optional callback to access the IContextualMenuRenderItem interface. Use this instead of ref for accessing
+   * the public methods and properties of the component.
+   */
+  renderItemComponentRef?: (component: IContextualMenuRenderItem | null) => void;
+
+  /**
    * Any additional properties to use when custom rendering menu items.
    */
   [propertyName: string]: any;
@@ -477,7 +477,6 @@ export interface IContextualMenuItem {
    * Optional prop to make an item readonly which is disabled but visitable by keyboard, will apply aria-readonly and some styling. Not supported by all components
    */
   inactive?: boolean;
-
 }
 
 export interface IContextualMenuSection extends React.Props<ContextualMenu> {

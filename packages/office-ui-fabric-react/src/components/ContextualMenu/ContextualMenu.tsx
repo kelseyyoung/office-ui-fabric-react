@@ -24,7 +24,8 @@ import {
   getFirstFocusable,
   getLastFocusable,
   css,
-  shouldWrapFocus
+  shouldWrapFocus,
+  createRef
 } from '../../Utilities';
 import { hasSubmenu, getIsChecked, isItemDisabled } from '../../utilities/contextualMenu/index';
 import { withResponsiveMode, ResponsiveMode } from '../../utilities/decorators/withResponsiveMode';
@@ -499,7 +500,8 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
     const itemHasSubmenu = hasSubmenu(item);
     const nativeProps = getNativeProps(item, anchorProperties);
     const disabled = isItemDisabled(item);
-    const openSubMenu = this._onItemSubMenuExpand.bind(this);
+    const anchorRef = createRef<HTMLAnchorElement>();
+    const openSubMenu = (item: IContextualMenuItem, target: HTMLElement = anchorRef.current) => { this._onItemSubMenuExpand(item, target); };
     const dismissSubMenu = this._onSubMenuDismiss.bind(this);
     const dismissMenu = this.dismiss.bind(this, undefined);
 
@@ -514,6 +516,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
             <a
               { ...nativeProps }
               { ...keytipAttributes }
+              ref={ anchorRef }
               href={ item.href }
               target={ item.target }
               rel={ anchorRel }
@@ -606,6 +609,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
         hasMenu: true
       };
     }
+    const btnRef = createRef<HTMLButtonElement>();
     const openSubMenu = this._onItemSubMenuExpand.bind(this);
     const dismissSubMenu = this._onSubMenuDismiss.bind(this);
     const dismissMenu = this.dismiss.bind(this, undefined);
@@ -618,6 +622,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
       >
         { (keytipAttributes: any): JSX.Element => (
           <button
+            ref={ btnRef }
             { ...buttonNativeProperties as React.ButtonHTMLAttributes<HTMLButtonElement> }
             { ...itemButtonProperties as React.ButtonHTMLAttributes<HTMLButtonElement> }
             { ...keytipAttributes }
@@ -674,6 +679,7 @@ export class ContextualMenu extends BaseComponent<IContextualMenuProps, IContext
         openSubMenu={ openSubMenu }
         dismissSubMenu={ dismissSubMenu }
         dismissMenu={ dismissMenu }
+        componentRef={ item.renderItemComponentRef }
       />
     );
   }
