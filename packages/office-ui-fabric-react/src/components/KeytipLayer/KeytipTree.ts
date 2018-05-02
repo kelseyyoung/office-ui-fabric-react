@@ -1,12 +1,8 @@
-import {
-  convertSequencesToKeytipID,
-  find,
-  KTP_LAYER_ID,
-  mergeOverflowKeySequences,
-  values
-} from '../../Utilities';
+import { find, values } from '../../Utilities';
 import { IKeytipProps } from '../../Keytip';
 import { IKeytipTreeNode } from './IKeytipTreeNode';
+import { mergeOverflows, sequencesToID } from '../../utilities/keytips/KeytipUtils';
+import { KTP_LAYER_ID } from '../../utilities/keytips/KeytipConstants';
 
 /**
  * This class is responsible for handling the parent/child relationships between keytips
@@ -40,7 +36,7 @@ export class KeytipTree {
   public addNode(keytipProps: IKeytipProps, uniqueID: string, persisted?: boolean): void {
     const { keySequences, hasDynamicChildren, overflowSetSequence, hasMenu, onExecute, onReturn, disabled } = keytipProps;
     const fullSequence = this._getFullSequence(keytipProps);
-    const nodeID = convertSequencesToKeytipID(fullSequence);
+    const nodeID = sequencesToID(fullSequence);
 
     // Take off the last item to calculate the parent sequence
     fullSequence.pop();
@@ -67,7 +63,7 @@ export class KeytipTree {
    */
   public updateNode(keytipProps: IKeytipProps, uniqueID: string): void {
     const fullSequence = this._getFullSequence(keytipProps);
-    const nodeID = convertSequencesToKeytipID(fullSequence);
+    const nodeID = sequencesToID(fullSequence);
 
     // Take off the last item to calculate the parent sequence
     fullSequence.pop();
@@ -95,7 +91,7 @@ export class KeytipTree {
    */
   public removeNode(keytipProps: IKeytipProps, uniqueID: string): void {
     const fullSequence = this._getFullSequence(keytipProps);
-    const nodeID = convertSequencesToKeytipID(fullSequence);
+    const nodeID = sequencesToID(fullSequence);
 
     // Take off the last sequence to calculate the parent ID
     fullSequence.pop();
@@ -206,15 +202,15 @@ export class KeytipTree {
     if (this.currentKeytip) {
       let fullSequence = [...keytipProps.keySequences];
       if (keytipProps.overflowSetSequence) {
-        fullSequence = mergeOverflowKeySequences(fullSequence, keytipProps.overflowSetSequence);
+        fullSequence = mergeOverflows(fullSequence, keytipProps.overflowSetSequence);
       }
       // Take off the last sequence to calculate the parent ID
       fullSequence.pop();
       // Parent ID is the root if there aren't any more sequences
-      const parentID = fullSequence.length === 0 ? this.root.id : convertSequencesToKeytipID(fullSequence);
+      const parentID = fullSequence.length === 0 ? this.root.id : sequencesToID(fullSequence);
       let matchesCurrWithoutOverflow = false;
       if (this.currentKeytip.overflowSetSequence) {
-        const currKeytipIdWithoutOverflow = convertSequencesToKeytipID(this.currentKeytip.keySequences);
+        const currKeytipIdWithoutOverflow = sequencesToID(this.currentKeytip.keySequences);
         matchesCurrWithoutOverflow = currKeytipIdWithoutOverflow === parentID;
       }
       return matchesCurrWithoutOverflow || this.currentKeytip.id === parentID;
@@ -223,13 +219,13 @@ export class KeytipTree {
   }
 
   private _getParentID(fullSequence: string[]): string {
-    return fullSequence.length === 0 ? this.root.id : convertSequencesToKeytipID(fullSequence);
+    return fullSequence.length === 0 ? this.root.id : sequencesToID(fullSequence);
   }
 
   private _getFullSequence(keytipProps: IKeytipProps): string[] {
     let fullSequence = [...keytipProps.keySequences];
     if (keytipProps.overflowSetSequence) {
-      fullSequence = mergeOverflowKeySequences(fullSequence, keytipProps.overflowSetSequence);
+      fullSequence = mergeOverflows(fullSequence, keytipProps.overflowSetSequence);
     }
     return fullSequence;
   }
@@ -237,7 +233,7 @@ export class KeytipTree {
   private _getNodeSequence(node: IKeytipTreeNode): string {
     let fullSequence = [...node.keySequences];
     if (node.overflowSetSequence) {
-      fullSequence = mergeOverflowKeySequences(fullSequence, node.overflowSetSequence);
+      fullSequence = mergeOverflows(fullSequence, node.overflowSetSequence);
     }
     return fullSequence[fullSequence.length - 1];
   }

@@ -65,13 +65,17 @@ exports[`Keytip renders visible disabled Keytip correctly 1`] = `
         background-color: #212121;
         opacity: 0.5;
       }
+      @media screen and (-ms-high-contrast: active){& {
+        color: GrayText;
+        opacity: 1;
+      }
 >
   <span
     className=
 
         {
           background-color: #212121;
-          color: #b1b1b1;
+          color: #c8c8c8;
           display: inline-block;
           height: 17px;
           line-height: 17px;

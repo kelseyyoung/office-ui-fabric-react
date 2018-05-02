@@ -1,13 +1,11 @@
 import {
   BaseComponent,
   IRenderComponent,
-  mergeOverflowKeySequences,
-  convertSequencesToKeytipID,
-  getAriaDescribedBy
 } from '../../Utilities';
 import { IKeytipDataProps } from './KeytipData.types';
 import { IKeytipProps } from '../../Keytip';
 import { KeytipManager } from '../../utilities/keytips/KeytipManager';
+import { mergeOverflows, sequencesToID, getAriaDescribedBy } from '../../utilities/keytips/KeytipUtils';
 
 /**
  * A small element to help the target component correctly read out its aria-describedby for its Keytip
@@ -23,30 +21,30 @@ export class KeytipData extends BaseComponent<IKeytipDataProps & IRenderComponen
   public componentDidMount() {
     // Register Keytip in KeytipManager
     if (this.props.keytipProps) {
-      this._uniqueId = this._keytipManager.registerKeytip(this._getKeytipProps());
+      this._uniqueId = this._keytipManager.register(this._getKtpProps());
     }
   }
 
   public componentWillUnmount() {
     // Unregister Keytip in KeytipManager
-    this.props.keytipProps && this._keytipManager.unregisterKeytip(this._getKeytipProps(), this._uniqueId);
+    this.props.keytipProps && this._keytipManager.unregister(this._getKtpProps(), this._uniqueId);
   }
 
   public componentDidUpdate() {
     // Update Keytip in KeytipManager
-    this.props.keytipProps && this._keytipManager.updateKeytip(this._getKeytipProps(), this._uniqueId);
+    this.props.keytipProps && this._keytipManager.update(this._getKtpProps(), this._uniqueId);
   }
 
   public render(): JSX.Element {
     const { children, keytipProps, ariaDescribedBy } = this.props;
     let nativeKeytipProps: any = {};
     if (keytipProps) {
-      nativeKeytipProps = this._getNativeKeytipProps(keytipProps, ariaDescribedBy);
+      nativeKeytipProps = this._getKtpAttrs(keytipProps, ariaDescribedBy);
     }
     return children(nativeKeytipProps);
   }
 
-  private _getKeytipProps(): IKeytipProps {
+  private _getKtpProps(): IKeytipProps {
     return {
       disabled: this.props.disabled,
       ...this.props.keytipProps!,
@@ -58,18 +56,18 @@ export class KeytipData extends BaseComponent<IKeytipDataProps & IRenderComponen
    * @param keytipProps
    * @param describedByPrepend
    */
-  private _getNativeKeytipProps(keytipProps: IKeytipProps, describedByPrepend?: string): any {
+  private _getKtpAttrs(keytipProps: IKeytipProps, describedByPrepend?: string): any {
     if (keytipProps) {
       // Add the parent overflow sequence if necessary
-      const newKeytipProps = this._keytipManager.addParentOverflowSequence(keytipProps);
+      const newKeytipProps = this._keytipManager.addParentOverflow(keytipProps);
 
       // Construct aria-describedby and data-ktp-id attributes and return
       const ariaDescribedBy = getAriaDescribedBy(newKeytipProps.keySequences);
       let keySequences = [...newKeytipProps.keySequences];
       if (newKeytipProps.overflowSetSequence) {
-        keySequences = mergeOverflowKeySequences(keySequences, newKeytipProps.overflowSetSequence);
+        keySequences = mergeOverflows(keySequences, newKeytipProps.overflowSetSequence);
       }
-      const ktpId = convertSequencesToKeytipID(keySequences);
+      const ktpId = sequencesToID(keySequences);
 
       return {
         'aria-describedby': (describedByPrepend || '') + ariaDescribedBy,
